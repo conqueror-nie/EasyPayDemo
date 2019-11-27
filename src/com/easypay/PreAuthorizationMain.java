@@ -2,24 +2,22 @@ package com.easypay;
 
 import net.sf.json.JSONObject;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * 无跳转快捷测试
- * @author njp
- *
- */
-public class NopagesMain {
+//预授权测试demo
+public class PreAuthorizationMain {
 
-	//标记生产还是测试环境
+    //标记生产还是测试环境
     public static boolean isTest = true;
 
     //根据接口文档生成对应的json请求字符串
     private static String biz_content = "";
 
     //接口文档中的方法名
-    private static String service = "easypay.pay.nopages.sendSMS";
+    private static String service = "trade.auth.preAuthorization";
 
     //商户号
     private static String merchant_id = KeyUtils.TEST_DEFAULT_MERCHANT_ID;
@@ -39,71 +37,39 @@ public class NopagesMain {
     //加密密钥
     private static String DES_ENCODE_KEY = KeyUtils.TEST_DES_ENCODE_KEY;
 
-    //无跳转快捷--前台开通
-    public static void nopagesOpenFront(String acc){
-        JSONObject sParaTemp = new JSONObject();
-        sParaTemp.put("merchant_id", "900029000000354");
-        sParaTemp.put("out_trade_no", "201911181564553000837");
-        sParaTemp.put("acc", getEncode(acc));
-        sParaTemp.put("front_url", "https://www.baidu.com");
-        sParaTemp.put("notify_url", "https://www.baidu.com");
 
-        biz_content = sParaTemp.toString();
-        service  = "easypay.pay.nopages.openFront";
-    }
-    
-    //无跳转快捷--快捷查询
-    public static void nopagesOpenQuery(String acc){
-        JSONObject sParaTemp = new JSONObject();
-        sParaTemp.put("merchant_id", "900029000000354");
-        sParaTemp.put("acc", getEncode(acc));
-
-        biz_content = sParaTemp.toString();
-        service  = "easypay.pay.nopages.openQuery";
-    }
-    
-    //无跳转快捷获取验证码
-    public static void sendSMS(String acc,String mobile){
+    //预授权
+    public static void preAuthorization(){
         JSONObject sParaTemp = new JSONObject();
         sParaTemp.put("merchant_id", merchant_id);
-        sParaTemp.put("out_trade_no", KeyUtils.getOutTradeNo());
-        sParaTemp.put("amount", "1");
-        sParaTemp.put("acc", getEncode(acc));   //银行卡号
-        sParaTemp.put("mobile", getEncode(mobile)); //手机号
-//        sParaTemp.put("name", "聂剑平");
-//        sParaTemp.put("idno", getEncode("340827199311106316"));		//身份证
-//        sParaTemp.put("cvv", getEncode("427"));
-//        sParaTemp.put("validity_year", getEncode("20"));
-//        sParaTemp.put("validity_month", getEncode("12"));
-        sParaTemp.put("subject", "subject");
-        sParaTemp.put("body", "body");
-        sParaTemp.put("seller_email", "18679106330@gmail.com");
-        sParaTemp.put("notify_url", "https://www.baidu.com");
 
+        sParaTemp.put("amount", "1");
+        sParaTemp.put("business_time", getDateStr() );
+        sParaTemp.put("notify_url", "http://www.baidu.com");
+        sParaTemp.put("subject", "Echannell");
+        sParaTemp.put("out_trade_no", KeyUtils.getOutTradeNo());
+        sParaTemp.put("name", getEncode("全渠道"));
+        sParaTemp.put("id_no", getEncode("341126197709218366"));//身份证
+        sParaTemp.put("acc", getEncode("5200831111111113")); //银行卡号
+        sParaTemp.put("mobile", getEncode("13552535506"));
+        sParaTemp.put("cvv", getEncode("123"));
+        sParaTemp.put("validityDate", getEncode("1911"));
+        
         biz_content = sParaTemp.toString();
 
-        service  = "easypay.pay.nopages.union.sendSMS";
+        service  = "easypay.pay.preAuthorization";
     }
-
 
     private static String getEncode(String data){
         return StringUtils.bytesToHexStr(DesUtil.desEncode(data, DES_ENCODE_KEY));
     }
-
-    //银联无跳转支付
-    public static void pay(String orderId,String vcode,String acc){
-        JSONObject sParaTemp = new JSONObject();
-        sParaTemp.put("merchant_id", merchant_id);
-        sParaTemp.put("orig_out_trade_no", orderId);
-        sParaTemp.put("amount", 1);
-        sParaTemp.put("acc", getEncode(acc));   //银行卡号
-        sParaTemp.put("vcode", vcode);
-//        sParaTemp.put("mobile", getEncode("18010461286")); //手机号
-
-        biz_content = sParaTemp.toString();
-        service  = "easypay.pay.nopages.pay";
+    
+    private static String getDateStr(){
+    	Date d = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss ");
+        return sdf.format(d);
     }
-
+    
     public static void main(String[] args) {
         //易生请求示例子
         try {
@@ -124,17 +90,8 @@ public class NopagesMain {
                 DES_ENCODE_KEY = KeyUtils.SC_DES_ENCODE_KEY;
             }
 
-            //无跳转开通--卡号
-//            nopagesOpenFront("6225768759941717");
-            
-            //开通查询--卡号
-//            nopagesOpenQuery("6225768759941717");
-            
-            //无跳转快捷获取验证码--卡号，手机号
-//            sendSMS("6225768759941717","18010461286");
-
-            //银联无跳转支付--原交易订单号，验证码，卡号
-            pay("201911271574838379989","685539","6225768759941717");
+            //预授权
+            preAuthorization();
 
             //加密类型，默认RSA
             String sign_type = KeyUtils.TEST_DEFAULT_ENCODE_TYPE;
@@ -151,7 +108,7 @@ public class NopagesMain {
             reqMap.put("sign_type", sign_type);
             reqMap.put("charset", charset);
             reqMap.put("sign", sign);
-            System.out.println("biz_content: " + biz_content);
+
             StringBuilder resultStrBuilder = new StringBuilder();
             int ret = HttpConnectUtils.sendRequest(url, KeyUtils.TEST_DEFAULT_CHARSET, reqMap, 30000, 60000, "POST", resultStrBuilder, null);
             System.out.print(" \n请求地址为：" + url +
@@ -161,8 +118,11 @@ public class NopagesMain {
             //易生公钥验证返回签名
             StringUtils.rsaVerifySign(resultStrBuilder, easypay_pub_key);
         }catch (Exception e){
-            System.out.print(e.getMessage()+ "\n");
+            if(e != null){
+                System.out.print(e.getMessage()+ "\n");
+            }else {
+                System.out.print("-----其他未知错误--------"+ "\n");
+            }
         }
     }
-
 }

@@ -10,9 +10,9 @@ import java.util.Map;
  *
  */
 public class EleContMain {
-	
+
 	//标记生产还是测试环境
-    public static boolean isTest = true;
+    public static boolean isTest = false;
 
     //根据接口文档生成对应的json请求字符串
     private static String biz_content = "";
@@ -20,6 +20,8 @@ public class EleContMain {
     //接口文档中的方法名
     private static String service = "easypay.elecont.createCont";
 
+    //协议开户商户
+    private static String tempMerchantId = "900036800002758";
     //商户号
     private static String merchant_id = KeyUtils.TEST_DEFAULT_MERCHANT_ID;
 
@@ -40,69 +42,119 @@ public class EleContMain {
 
     //协议预览
     public static void protocolPreview(){
+        //测试动态参数用
+        HashMap<String, Object> dynamicMap = new HashMap<String, Object>(30);
+        dynamicMap.put("d1", "90");
+        dynamicMap.put("d2", "1");
+        dynamicMap.put("d3", "9");
+
+        dynamicMap.put("b7", "测试商户");
+        dynamicMap.put("b10", "上海市浦东新区");
+
+        dynamicMap.put("b14", "张三");
+        dynamicMap.put("b15", "18888888888");
+        dynamicMap.put("b20", "√");
+        dynamicMap.put("b21", "");
+        dynamicMap.put("b22", "无");
+        
+        dynamicMap.put("b23", "0.55%");
+        dynamicMap.put("b24", "20");
+        dynamicMap.put("b25", "0.55%");
+        dynamicMap.put("b26", "0.29%");
+        dynamicMap.put("b27", "0.29%");
+        dynamicMap.put("b28", "1000 元以下（含 1000 元）， 借记卡 0.29%， 贷记卡 0.29%；1000 元以上，借记卡 0.55%,20 元封顶，贷记卡 0.55%");
+        dynamicMap.put("b29", "0.29%");
+        dynamicMap.put("b30", "0.29%");
+
         JSONObject sParaTemp = new JSONObject();
         sParaTemp.put("merchant_id", merchant_id);
-        sParaTemp.put("model_name", "双方协议模板test");
-        sParaTemp.put("idno", "");
-        sParaTemp.put("idno_type", "");
+        sParaTemp.put("model_name", "好开店商户（三方）受理支付业务协议");
+//        sParaTemp.put("idno", "210624199702023099");
+//        sParaTemp.put("idno_type", "1");
+        sParaTemp.put("dynamic_map", dynamicMap);
         biz_content = sParaTemp.toString();
 
         service  = "easypay.elecont.protocolPreview";
     }
-    
+
     //发送短信
     public static void sendSMS(){
         JSONObject sParaTemp = new JSONObject();
         sParaTemp.put("merchant_id", merchant_id);
         sParaTemp.put("random_code", "00");
-        sParaTemp.put("model_name", "双方协议模板test");
-        sParaTemp.put("idno", "");
-        sParaTemp.put("idno_type", "");
+        sParaTemp.put("model_name", "好开店商户（三方）受理支付业务协议");
+//        sParaTemp.put("idno", "321281198301014053");
+//        sParaTemp.put("idno_type", "1");
         biz_content = sParaTemp.toString();
 
         service  = "easypay.elecont.sendSMS";
     }
-    
+
     //创建合同
     public static void createCont(){
+
+        HashMap<String, Object> dynamicMap = new HashMap<String, Object>(30);
+        dynamicMap.put("d1", "90");
+        dynamicMap.put("d2", "1");
+        dynamicMap.put("d3", "9");
+
+        dynamicMap.put("b7", "测试商户");
+        dynamicMap.put("b10", "上海市浦东新区");
+
+        dynamicMap.put("b14", "张三");
+        dynamicMap.put("b15", "18888888888");
+        dynamicMap.put("b20", "√");
+        dynamicMap.put("b21", "");
+        dynamicMap.put("b22", "无");
+        
+        dynamicMap.put("b23", "0.55%");
+        dynamicMap.put("b24", "20");
+        dynamicMap.put("b25", "0.55%");
+        dynamicMap.put("b26", "0.29%");
+        dynamicMap.put("b27", "0.29%");
+        dynamicMap.put("b28", "1000 元以下（含 1000 元）， 借记卡 0.29%， 贷记卡 0.29%；1000 元以上，借记卡 0.55%,20 元封顶，贷记卡 0.55%");
+        dynamicMap.put("b29", "0.29%");
+        dynamicMap.put("b30", "0.29%");
+        
         JSONObject sParaTemp = new JSONObject();
         sParaTemp.put("merchant_id", merchant_id);
         sParaTemp.put("random_code", "00");
-        sParaTemp.put("check_code", "000000");
+        sParaTemp.put("check_code", "575818");
         sParaTemp.put("location", "172.168.3.21");
         sParaTemp.put("out_trade_no", KeyUtils.getOutTradeNo());
-        sParaTemp.put("contract_name", "双方测试协议");
-        sParaTemp.put("model_name", "双方协议模板test");
-        sParaTemp.put("idno", "");
-        sParaTemp.put("idno_type", "");
+        sParaTemp.put("contract_name", "好开店商户（三方）受理支付业务协议");
+        sParaTemp.put("model_name", "好开店商户（三方）受理支付业务协议");
+//        sParaTemp.put("idno", "");
+//        sParaTemp.put("idno_type", "");
+        sParaTemp.put("dynamic_map", dynamicMap);
         biz_content = sParaTemp.toString();
 
         service  = "easypay.elecont.createContract";
     }
-    
+
     //合同查询
     public static void queryCont(String contractNo) {
  	   JSONObject sParaTemp = new JSONObject();
  	   sParaTemp.put("merchant_id",merchant_id);
    	   sParaTemp.put("contract_no", contractNo);
-   	   
+
    	   biz_content = sParaTemp.toString();
-   	   
+
    	 service = "easypay.elecont.queryCont";
- 	   
-    }   
-    
+
+    }
+
     //下载合同
    public static void downloadCont(String contractNo) {
 	    JSONObject sParaTemp = new JSONObject();
      	sParaTemp.put("merchant_id",merchant_id);
    	    sParaTemp.put("contract_no", contractNo);
-   	    
+
    	    biz_content = sParaTemp.toString();
-   	   
+
      	service = "easypay.elecont.downloadCont";
    }
-   
+
     private static String getEncode(String data){
         return StringUtils.bytesToHexStr(DesUtil.desEncode(data, DES_ENCODE_KEY));
     }
@@ -131,13 +183,13 @@ public class EleContMain {
             //发送短信
 //            sendSMS();
             //创建合同
-//            createCont();
+            createCont();
             //合同查询
-//            queryCont("JS20190814000000015");
-            //下载合同
-            downloadCont("JS20190814000000015");
-           
-           
+//            queryCont("QT20191122000014329");
+//            下载合同
+//            downloadCont("QT20191122000014329");
+
+
             //加密类型，默认RSA
             String sign_type = KeyUtils.TEST_DEFAULT_ENCODE_TYPE;
             //编码类型
@@ -145,6 +197,7 @@ public class EleContMain {
 
             //根据请求参数生成的机密串
             String sign = KeyUtils.getSign(key, charset, biz_content);
+            System.out.print("key=" + key + "\n");
             System.out.print("计算签名数据为：" + sign + "\n");
             Map<String, String> reqMap = new HashMap<String, String>(6);
             reqMap.put("biz_content", biz_content);
