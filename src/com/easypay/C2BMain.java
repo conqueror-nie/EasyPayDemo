@@ -120,7 +120,7 @@ public class C2BMain {
 //            c2bBindCard();
 
             //c2b获取码
-            getC2BCode("ES2019041700105793");
+//            getC2BCode("ES2019041700105793");
 
             //c2b特约支付
 //            c2bPay("6226229270603618238");
