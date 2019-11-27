@@ -70,10 +70,11 @@ public class NopagesMain {
         sParaTemp.put("amount", "1");
         sParaTemp.put("acc", getEncode(acc));   //银行卡号
         sParaTemp.put("mobile", getEncode(mobile)); //手机号
-//        sParaTemp.put("name", "聂剑平");
-//        sParaTemp.put("idno", getEncode("340827199311106316"));		//身份证
-//        sParaTemp.put("cvv", getEncode("427"));
-//        sParaTemp.put("validity_year", getEncode("20"));
+        //以下为非必填字段
+//        sParaTemp.put("name", "测试");//姓名
+//        sParaTemp.put("idno", getEncode("340827199111111111"));		//身份证
+//        sParaTemp.put("cvv", getEncode("111"));
+//        sParaTemp.put("validity_year", getEncode("11"));
 //        sParaTemp.put("validity_month", getEncode("12"));
         sParaTemp.put("subject", "subject");
         sParaTemp.put("body", "body");
@@ -98,7 +99,8 @@ public class NopagesMain {
         sParaTemp.put("amount", 1);
         sParaTemp.put("acc", getEncode(acc));   //银行卡号
         sParaTemp.put("vcode", vcode);
-//        sParaTemp.put("mobile", getEncode("18010461286")); //手机号
+        //以下为非必填字段
+//        sParaTemp.put("mobile", getEncode("18010461111")); //手机号
 
         biz_content = sParaTemp.toString();
         service  = "easypay.pay.nopages.pay";
@@ -125,16 +127,16 @@ public class NopagesMain {
             }
 
             //无跳转开通--卡号
-//            nopagesOpenFront("6225768759941717");
+//            nopagesOpenFront("6225768749941111");
             
             //开通查询--卡号
-//            nopagesOpenQuery("6225768759941717");
+            nopagesOpenQuery("6225768749941111");
             
             //无跳转快捷获取验证码--卡号，手机号
-//            sendSMS("6225768759941717","18010461286");
+//            sendSMS("6225768749941111","18010461111");
 
             //银联无跳转支付--原交易订单号，验证码，卡号
-            pay("201911271574838379989","685539","6225768759941717");
+//            pay("201911271574838371119","000000","6225768749941111");
 
             //加密类型，默认RSA
             String sign_type = KeyUtils.TEST_DEFAULT_ENCODE_TYPE;
