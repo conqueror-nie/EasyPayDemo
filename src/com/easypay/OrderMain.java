@@ -42,6 +42,25 @@ public class OrderMain {
 
         service  = "easypay.qrcode.pay.push";
     }
+    //H5收银台推单
+    public static JSONObject easyPayh5() {
+        JSONObject sParaTemp = new JSONObject();
+        sParaTemp.put("merchant_id", merchant_id);
+        sParaTemp.put("out_trade_no", "easyPayh5_" + KeyUtils.getOutTradeNo());
+        sParaTemp.put("bank_code", "EASYPAY");
+        sParaTemp.put("account_type", "1");
+        sParaTemp.put("subject", "Echannell");
+        sParaTemp.put("body", "body");
+        sParaTemp.put("amount", "1");
+        sParaTemp.put("front_url", "https://www.baidu.com");
+        sParaTemp.put("notify_url", "http://127.0.0.1:8080/index.php/Api/YsNotify/notify"); 	
+        sParaTemp.put("timeout_minutes", "10");
+        sParaTemp.put("order_type", "151");
+
+        biz_content = sParaTemp.toString();
+        service = "easypay.merchant.easyPayh5";
+        return sParaTemp;
+    }
 
     public static JSONObject qrcodeAndJsPayPush(String payType) {
         JSONObject sParaTemp = new JSONObject();
@@ -111,16 +130,19 @@ public class OrderMain {
 
             //二维码订单推送
 //            OrderMain.qrcodePayPush("aliPay");//银联：unionNative, 微信：wxNative, 支付宝：aliPay
+            
+            //H5收银台推单
+//            easyPayh5();
 
             //公众号订单推送
-            OrderMain.jsPayPush("wxJsPay","oVRQJ05dzTQ7PO6qlST36ibnw8X8");//wxJsPay
+//            OrderMain.jsPayPush("wxJsPay","oVRQJ05dzTQ7PO6qlST36ibnw8X8");//wxJsPay
 //            OrderMain.jsPayPush("aliJsPay","20881007434917916336963360919773");// aliJsPay
 
             //订单查询
 //            OrderMain.orderQuery("demo1553480416547");
 
             //订单退款
-//            OrderMain.refund("2018060114615570");
+            OrderMain.refund("202001161579156948953");
 
             //加密类型，默认RSA
             String sign_type = KeyUtils.TEST_DEFAULT_ENCODE_TYPE;

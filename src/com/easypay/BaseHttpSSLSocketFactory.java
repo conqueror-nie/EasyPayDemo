@@ -53,7 +53,7 @@ public class BaseHttpSSLSocketFactory extends SSLSocketFactory {
     private SSLContext createEasySSLContext() {
         try {
             SSLContext context = SSLContext.getInstance("SSL");
-            context.init((KeyManager[])null, new TrustManager[]{BaseHttpSSLSocketFactory.MyX509TrustManager.manger}, (SecureRandom)null);
+            context.init((KeyManager[])null, new TrustManager[]{MyX509TrustManager.manger}, (SecureRandom)null);
             return context;
         } catch (Exception var2) {
             var2.printStackTrace();
@@ -71,7 +71,7 @@ public class BaseHttpSSLSocketFactory extends SSLSocketFactory {
     }
 
     public static class MyX509TrustManager implements X509TrustManager {
-        static BaseHttpSSLSocketFactory.MyX509TrustManager manger = new BaseHttpSSLSocketFactory.MyX509TrustManager();
+        static MyX509TrustManager manger = new MyX509TrustManager();
 
         public MyX509TrustManager() {
         }

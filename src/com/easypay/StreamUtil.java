@@ -56,11 +56,11 @@ public class StreamUtil {
     }
 
     public static OutputStream synchronizedOutputStream(OutputStream out) {
-        return new StreamUtil.SynchronizedOutputStream(out);
+        return new SynchronizedOutputStream(out);
     }
 
     public static OutputStream synchronizedOutputStream(OutputStream out, Object lock) {
-        return new StreamUtil.SynchronizedOutputStream(out, lock);
+        return new SynchronizedOutputStream(out, lock);
     }
 
     public static String readText(InputStream in) throws IOException {

@@ -15,8 +15,8 @@ public class KeyUtils {
     public static final String TEST_EASYPAY_PUBLIC_KEY="MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC2WTfvas1JvvaRuJWIKmKlBLmkRvr2O7Fu3k/zvhJs+X1JQorPWq/yZduY6HKu0up7Qi3T6ULHWyKBS1nRqhhHpmLHnI3sIO8E/RzNXJiTd9/bpXMv+H8F8DW5ElLxCIVuwHBROkBLWS9fIpslkFPt+r13oKFnuWhXgRr+K/YkJQIDAQAB";
 
     //测试访问地址
-    public static String DEFAULT_URL = "https://test_nucc.bhecard.com:9088/api_gateway.do";
-//    public static String DEFAULT_URL = "http://localhost:8080/api_gateway.do";
+//    public static String DEFAULT_URL = "https://test_nucc.bhecard.com:9088/api_gateway.do";
+    public static String DEFAULT_URL = "http://localhost:8080/api_gateway.do";
 //    public static String DEFAULT_URL = "https://180.168.215.67:9088/api_gateway.do";
     public static String TEST_DES_ENCODE_KEY = "CueaiPrW9sIskbn9qkoPh9J3";
 
@@ -29,7 +29,7 @@ public class KeyUtils {
     public static final String SC_EASYPAY_PUBLIC_KEY="MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC2WTfvas1JvvaRuJWIKmKlBLmkRvr2O7Fu3k/zvhJs+X1JQorPWq/yZduY6HKu0up7Qi3T6ULHWyKBS1nRqhhHpmLHnI3sIO8E/RzNXJiTd9/bpXMv+H8F8DW5ElLxCIVuwHBROkBLWS9fIpslkFPt+r13oKFnuWhXgRr+K/YkJQIDAQAB";
     public static final String SC_DEFAULT_MERCHANT_ID = "900029000000354";
     //生产访问地址
-    public static String SC_URL = "https://newpay.bhecard.com/api_gateway.do";
+    public static String SC_URL = "https://newbox.bhecard.com/api_gateway.do";
     public static String SC_DES_ENCODE_KEY = "s6yaiIycSFXufo4jEg3VmLs4";
 
     public static final String TEST_DEFAULT_ENCODE_TYPE = "RSA";

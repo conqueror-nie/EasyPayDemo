@@ -13,7 +13,7 @@ import java.util.Map;
 public class C2BMain {
 
 	//标记生产还是测试环境
-    public static boolean isTest = true;
+    public static boolean isTest = true ;
 
     //根据接口文档生成对应的json请求字符串
     private static String biz_content = "";
@@ -131,7 +131,7 @@ public class C2BMain {
             String charset = KeyUtils.TEST_DEFAULT_CHARSET;
 
             //根据请求参数生成的机密串
-            String sign = KeyUtils.getSign(KeyUtils.TEST_MERCHANT_PRIVATE_KEY, charset, biz_content);
+            String sign = KeyUtils.getSign(key, charset, biz_content);
             System.out.print("计算签名数据为：" + sign + "\n");
             Map<String, String> reqMap = new HashMap<String, String>(6);
             reqMap.put("biz_content", biz_content);

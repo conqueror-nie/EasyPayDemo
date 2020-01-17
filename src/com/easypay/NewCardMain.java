@@ -91,7 +91,7 @@ public class NewCardMain {
         sParaTemp.put("acc", getEncode("6226188887788788"));   //银行卡号
         sParaTemp.put("mobile", getEncode("137666666666")); //手机号
         sParaTemp.put("out_trade_no", KeyUtils.getOutTradeNo());
-        sParaTemp.put("channel_type", channel_type);//7银联   8 网联
+//        sParaTemp.put("channel_type", channel_type);//7银联   8 网联
         biz_content = sParaTemp.toString();
 
         service  = "easypay.pay.agreement.validate";
@@ -155,13 +155,13 @@ public class NewCardMain {
             }
 
             //新无卡-直接支付-账户认证
-            NewCardMain.directPayValidateAccount();
+//            NewCardMain.directPayValidateAccount();
 //            新无卡-直接支付
 //            NewCardMain.directPay("201906251561446701747", "683222");
 
 
             //新无卡-协议支付-账户认证
-//            NewCardMain.validateAccount(8);
+            NewCardMain.validateAccount(8);
 
             //新无卡-协议支付-账户签约
 //            NewCardMain.agreementPayBind("201905141557818365653", "123456",8);

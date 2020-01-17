@@ -12,7 +12,7 @@ import java.util.Map;
 public class EleContMain {
 
 	//标记生产还是测试环境
-    public static boolean isTest = false;
+    public static boolean isTest = true;
 
     //根据接口文档生成对应的json请求字符串
     private static String biz_content = "";
@@ -67,7 +67,7 @@ public class EleContMain {
         dynamicMap.put("b30", "0.29%");
 
         JSONObject sParaTemp = new JSONObject();
-        sParaTemp.put("merchant_id", merchant_id);
+        sParaTemp.put("merchant_id", tempMerchantId);
         sParaTemp.put("model_name", "好开店商户（三方）受理支付业务协议");
 //        sParaTemp.put("idno", "210624199702023099");
 //        sParaTemp.put("idno_type", "1");
@@ -80,7 +80,7 @@ public class EleContMain {
     //发送短信
     public static void sendSMS(){
         JSONObject sParaTemp = new JSONObject();
-        sParaTemp.put("merchant_id", merchant_id);
+        sParaTemp.put("merchant_id", tempMerchantId);
         sParaTemp.put("random_code", "00");
         sParaTemp.put("model_name", "好开店商户（三方）受理支付业务协议");
 //        sParaTemp.put("idno", "321281198301014053");
@@ -117,9 +117,9 @@ public class EleContMain {
         dynamicMap.put("b30", "0.29%");
         
         JSONObject sParaTemp = new JSONObject();
-        sParaTemp.put("merchant_id", merchant_id);
+        sParaTemp.put("merchant_id", tempMerchantId);
         sParaTemp.put("random_code", "00");
-        sParaTemp.put("check_code", "575818");
+        sParaTemp.put("check_code", "000000");
         sParaTemp.put("location", "172.168.3.21");
         sParaTemp.put("out_trade_no", KeyUtils.getOutTradeNo());
         sParaTemp.put("contract_name", "好开店商户（三方）受理支付业务协议");
@@ -135,7 +135,7 @@ public class EleContMain {
     //合同查询
     public static void queryCont(String contractNo) {
  	   JSONObject sParaTemp = new JSONObject();
- 	   sParaTemp.put("merchant_id",merchant_id);
+ 	   sParaTemp.put("merchant_id",tempMerchantId);
    	   sParaTemp.put("contract_no", contractNo);
 
    	   biz_content = sParaTemp.toString();
@@ -147,7 +147,7 @@ public class EleContMain {
     //下载合同
    public static void downloadCont(String contractNo) {
 	    JSONObject sParaTemp = new JSONObject();
-     	sParaTemp.put("merchant_id",merchant_id);
+     	sParaTemp.put("merchant_id",tempMerchantId);
    	    sParaTemp.put("contract_no", contractNo);
 
    	    biz_content = sParaTemp.toString();
