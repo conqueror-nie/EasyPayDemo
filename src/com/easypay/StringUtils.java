@@ -1,5 +1,9 @@
 package com.easypay;
 
+import com.easypay.sm.SM2Utils;
+import com.easypay.sm.Util;
+import org.bouncycastle.util.encoders.Base64;
+
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
@@ -269,6 +273,24 @@ public class StringUtils {
         System.out.println("验证返回签名是否正确：" + isTrue);
     }
 
+    public static boolean rsaVerifySign(StringBuilder resultStrBuilder, String easypay_pub_key , String sign_type)  throws Exception {
+        //同步返回签名，需要对字符串进行截取后，再验证签名
+        String msg =resultStrBuilder.toString();
+        String returnString = org.apache.commons.lang.StringUtils.substringBetween(msg,"response\":", ",\"sign\"");
+        String returnSign = org.apache.commons.lang.StringUtils.substringBetween(msg,",\"sign\":\"","\"}");
+        boolean isTrue=false;
+        if(KeyUtils.TEST_SM_ENCODE_TYPE.equals(sign_type)) {
+            isTrue= SM2Utils.verifySign("".getBytes(), Base64.decode(easypay_pub_key.getBytes()),returnString.getBytes(),Util.hexToByte(returnSign));
+            System.out.println("验证返回SM签名是否正确：" + isTrue);
+        }else {
+            isTrue=AlipaySignature.rsaCheckContent(returnString, returnSign, easypay_pub_key, "UTF-8");
+            System.out.println("验证返回RSA签名是否正确：" + isTrue);
+        }
+
+        return isTrue;
+    }
+
+
 
     //回调通知报文，验证签名
     public static void main(String[] args) throws Exception {
@@ -276,7 +298,7 @@ public class StringUtils {
 
         String returnString = org.apache.commons.lang.StringUtils.substringBetween(msg,"biz_content=", "&partner=");
         String returnSign = org.apache.commons.lang.StringUtils.substringBetween(msg,"sign=","&sign_type");
-        boolean isTrue=AlipaySignature.rsaCheckContent(returnString, returnSign, KeyUtils.TEST_EASYPAY_PUBLIC_KEY, "UTF-8");
+        boolean isTrue=AlipaySignature.rsaCheckContent(returnString, returnSign, KeyUtils.TEST_EASYPAY_RSA_PUBLIC_KEY, "UTF-8");
         System.out.println("验证返回签名是否正确：" + isTrue);
     }
 }
